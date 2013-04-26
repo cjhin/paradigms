@@ -14,6 +14,5 @@ class module_ps:
 
         return '''
             <p>The output of ps is</p>'''+output+'''
-            <p>[<a href="../">Return</a>]</p>
         '''
     index.exposed = True

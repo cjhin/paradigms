@@ -60,7 +60,6 @@ class module_itunes:
                 <li><a href='/itunes/next'>next</a></li>
                 <li><a href='/itunes/prev'>prev</a></li>
             </ul>
-            <p>[<a href="../">Return</a>]</p>
         '''
     index.exposed = True
 
@@ -70,7 +69,7 @@ class itunes_play:
         args = shlex.split(command)
         proc = subprocess.Popen(args, stdout=subprocess.PIPE)
         sleep(0.05) # allow itunes to update before the page is refreshed
-        raise cherrypy.HTTPRedirect("../")
+        raise cherrypy.HTTPRedirect("../../")
     index.exposed = True
 
 class itunes_pause:
@@ -79,7 +78,7 @@ class itunes_pause:
         args = shlex.split(command)
         proc = subprocess.Popen(args, stdout=subprocess.PIPE)
         sleep(0.05) # allow itunes to update before the page is refreshed
-        raise cherrypy.HTTPRedirect("../")
+        raise cherrypy.HTTPRedirect("../../")
     index.exposed = True
 
 class itunes_next:
@@ -88,7 +87,7 @@ class itunes_next:
         args = shlex.split(command)
         proc = subprocess.Popen(args, stdout=subprocess.PIPE)
         sleep(0.05) # allow itunes to update before the page is refreshed
-        raise cherrypy.HTTPRedirect("../")
+        raise cherrypy.HTTPRedirect("../../")
     index.exposed = True
 
 class itunes_prev:
@@ -97,5 +96,5 @@ class itunes_prev:
         args = shlex.split(command)
         proc = subprocess.Popen(args, stdout=subprocess.PIPE)
         sleep(0.05) # allow itunes to update before the page is refreshed
-        raise cherrypy.HTTPRedirect("../")
+        raise cherrypy.HTTPRedirect("../../")
     index.exposed = True

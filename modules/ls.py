@@ -6,6 +6,5 @@ class module_ls:
         output = proc.stdout.read() 
         return ''' 
             <p>The output of ls is</p>'''+output+''' 
-            <p>[<a href="../">Return</a>]</p> 
         ''' 
     index.exposed = True

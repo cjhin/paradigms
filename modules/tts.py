@@ -10,11 +10,10 @@ class module_tts:
     def index(self): #POST didn't work for some reason?
         return '''
             <p>Text to Speech!</p>
-            <form action="speak" method="GET"> 
+            <form action="tts/speak" method="GET"> 
                 <textarea name="text" rows="10" cols="40"></textarea><br>
                 <input type="submit" value="Speak!">
             <form>
-            <p>[<a href="../">Return</a>]</p>
         '''
     index.exposed = True
 
@@ -23,5 +22,5 @@ class tts_speak:
         command = """say """+str(text)
         args = shlex.split(command)
         proc = subprocess.Popen(args, stdout=subprocess.PIPE)
-        raise cherrypy.HTTPRedirect("../")
+        raise cherrypy.HTTPRedirect("../../")
     index.exposed = True
