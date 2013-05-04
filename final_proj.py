@@ -10,7 +10,7 @@ from scripts import page_include
 
 module_names = []
 for filename in os.listdir('./modules'):
-      if fnmatch.fnmatch(filename, '*.py') and filename not in('__init__.py','itunes.py'):
+      if fnmatch.fnmatch(filename, '*.py') and filename not in('__init__.py'):
         filename = filename[:-3]
         module_names.append(filename)
 
@@ -27,7 +27,7 @@ class homepage:
 
       <body>
         <div class="row-fluid" style="text-align:center; background-color:#188A00">
-          <h1><font color="#D0D0D0">Mobi</font></h1>
+          <h1><font color="#D0D0D0">Swag</font></h1>
         </div>
     '''       
     #HTML Body
