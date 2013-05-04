@@ -16,6 +16,9 @@ s.connect(("gmail.com",80))
 print(s.getsockname()[0])
 s.close()
 
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+print cur_dir
+
 ###############################################
 # Main Page
 class homepage:
@@ -27,8 +30,12 @@ class homepage:
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>		 
       </head>
 
-      <body>
-        <div class="row-fluid" style="text-align:center; background-color:#188A00">
+      <body style="background='background.bmp'">
+
+		<img src="/images/background.bmp"/>
+
+
+        <div class="row-fluid" style="text-align:left; padding-left:20px; background-color:#188A00">
           <h1><font color="#D0D0D0">Swag</font></h1>
         </div>
     '''       
@@ -36,7 +43,7 @@ class homepage:
     #Loop through modules, call each using get_script 
     mod_count = 0
     for module in module_names:
-        HTML += '<div class="row-fluid" style="text-align:center; border-top-style:solid; border-radius:5px; border-color:#188A00; padding-bottom:10px">' #module
+        HTML += '<div class="span4" style="text-align:center; border-top-style:solid; border-radius:5px; border-color:#188A00; padding-bottom:10px">' #module
         HTML += '<div class = "row-fluid" style="text-align: center; background-color:#D0D0D0"><h2>'+module+'</h2></div>' #title
         HTML += '<script>HttpRequest("'+module+'")</script></div>'       #body
         mod_count += 1              
@@ -70,4 +77,17 @@ for module in module_names:
 ###############################################
 # Let's get this party started
 if __name__ == '__main__':
-	cherrypy.quickstart(root, config = os.path.join(os.path.dirname(__file__), 'conf.conf'))
+
+	conf = {
+		'global': {
+			'server.socket_host': '0.0.0.0',
+			'server.socket_port': 8001},
+		'/': {
+			'tools.staticdir.root': os.path.join(os.path.abspath(__file__))[:-13]},
+		'/images': {
+			'tools.staticdir.on': True,
+			'tools.staticdir.dir': 'images/'}
+	}
+
+#	cherrypy.quickstart(root, config = os.path.join(os.path.dirname(__file__), 'conf.conf'))
+	cherrypy.quickstart(root, '/', config = conf)
