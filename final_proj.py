@@ -8,11 +8,13 @@ import os.path
 import fnmatch
 from scripts import page_include
 
-module_names = []
-for filename in os.listdir('./modules'):
-      if fnmatch.fnmatch(filename, '*.py') and filename not in('__init__.py','itunes.py'):
-        filename = filename[:-3]
-        module_names.append(filename)
+
+#get ip address of this machine and print it for debugging purposes
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("gmail.com",80))
+print(s.getsockname()[0])
+s.close()
 
 ###############################################
 # Main Page
@@ -27,7 +29,7 @@ class homepage:
 
       <body>
         <div class="row-fluid" style="text-align:center; background-color:#188A00">
-          <h1><font color="#D0D0D0">Mobi</font></h1>
+          <h1><font color="#D0D0D0">Swag</font></h1>
         </div>
     '''       
     #HTML Body
@@ -43,22 +45,27 @@ class homepage:
   index.exposed = True
 
 ###############################################
-# Initialize all "modules" 
+# Import and Initialize all "modules" 
 # TODO change this so that the modules are added dynamically based on some saved preferences or something
 #
 #   Ex:
 #   root.'url' = 'package_name'.'module_class_name'()
-#from modules import ls,ps,itunes,tts
 
-for module in module_names:
-    code = 'from modules import '+module
-    exec code
+# Import the list of desired modules
+module_names = []
+for filename in os.listdir('./modules'):
+      if fnmatch.fnmatch(filename, '*.py') and filename not in('__init__.py'):
+        filename = filename[:-3]
+        module_names.append(filename)
 
 root = homepage()
 
+# Initialize all modules
 for module in module_names:
-    code = 'root.'+module+' = '+module+'.module_'+module+'()'
-    exec code
+	import_command = 'from modules import '+module
+	exec import_command
+	code = 'root.'+module+' = '+module+'.module_'+module+'()'
+	exec code
 
 ###############################################
 # Let's get this party started
