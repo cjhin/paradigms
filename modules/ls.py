@@ -5,7 +5,7 @@ class module_ls:
         proc = subprocess.Popen("ls", stdout=subprocess.PIPE) 
         output = proc.stdout.read() 
         return '''     
-                      <h1>ls</h1>
+                      <h4> >>> ls </h4>
                       <p>'''+output+'''</p> 
                ''' 
     index.exposed = True

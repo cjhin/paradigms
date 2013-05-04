@@ -9,10 +9,10 @@ class module_tts:
     
     def index(self): #POST didn't work for some reason?
         return '''
-            <p>Text to Speech!</p>
+            <h4>Text to Speech</h4>
             <form action="tts/speak" method="GET"> 
-                <textarea name="text" rows="10" cols="40"></textarea><br>
-                <input type="submit" value="Speak!">
+                <textarea name="text" rows="10" cols="10"></textarea><br>
+                <input type="submit" value="Speak!" class="btn">
             <form>
         '''
     index.exposed = True

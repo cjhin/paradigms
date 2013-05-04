@@ -8,8 +8,6 @@ import os.path
 import fnmatch
 from scripts import page_include
 
-colors = ['B0F5FF','FFD5AF']
-
 module_names = []
 for filename in os.listdir('./modules'):
       if fnmatch.fnmatch(filename, '*.py') and filename not in('__init__.py','itunes.py'):
@@ -20,22 +18,25 @@ for filename in os.listdir('./modules'):
 # Main Page
 class homepage:
   def index(self):
-    #add get_script functions and do HTML head
+    #add get_script functions and do HTML head. Also create header. 
     HTML = page_include.get_script()+'''
       <head>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>		    
-        <h1 style="text-align: center"> THINK OF A KICKASS TITLE </h1>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>		 
       </head>
 
       <body>
-    '''        
+        <div class="row-fluid" style="text-align:center; background-color:#188A00">
+          <h1><font color="#D0D0D0">Mobi</font></h1>
+        </div>
+    '''       
     #HTML Body
     #Loop through modules, call each using get_script 
     mod_count = 0
     for module in module_names:
-        HTML = HTML + '<div class = "row-fluid" style="text-align: center; background-color:#'+colors[mod_count%len(colors)]+'">'
-        HTML = HTML + '<script>HttpRequest("'+module+'")</script></div>'       
+        HTML += '<div class="row-fluid" style="text-align:center; border-top-style:solid; border-radius:5px; border-color:#188A00; padding-bottom:10px">' #module
+        HTML += '<div class = "row-fluid" style="text-align: center; background-color:#D0D0D0"><h2>'+module+'</h2></div>' #title
+        HTML += '<script>HttpRequest("'+module+'")</script></div>'       #body
         mod_count += 1              
     HTML = HTML + '</body>'
     return HTML
