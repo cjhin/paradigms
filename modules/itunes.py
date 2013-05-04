@@ -24,35 +24,34 @@ class module_itunes:
     def index(self):
         command = """osascript -e 'tell application "iTunes" to player state as string'"""
         args = shlex.split(command)
-        #proc = subprocess.Popen(args, stdout=subprocess.PIPE)
-        #state = proc.stdout.readline()
+        proc = subprocess.Popen(args, stdout=subprocess.PIPE)
+        state = proc.stdout.readline()
 
         command = """osascript -e 'tell application "iTunes" to name of current track as string'"""
         args = shlex.split(command)
-        #proc = subprocess.Popen(args, stdout=subprocess.PIPE)
-        #name = proc.stdout.readline()
+        proc = subprocess.Popen(args, stdout=subprocess.PIPE)
+        name = proc.stdout.readline()
 
         command = """osascript -e 'tell application "iTunes" to artist of current track as string'"""
         args = shlex.split(command)
-        #proc = subprocess.Popen(args, stdout=subprocess.PIPE)
-        #artist = proc.stdout.readline()
+        proc = subprocess.Popen(args, stdout=subprocess.PIPE)
+        artist = proc.stdout.readline()
 
         command = """osascript -e 'tell application "iTunes" to album of current track as string'"""
         args = shlex.split(command)
-        #proc = subprocess.Popen(args, stdout=subprocess.PIPE)
-        #album = proc.stdout.readline()
+        proc = subprocess.Popen(args, stdout=subprocess.PIPE)
+        album = proc.stdout.readline()
 
 		#TODO if the song changes this page wont update... is there some kind of listener? worse case we can do a manual refresh
 
-        state = "playing"
         if state.strip() == "playing":
             play_pause = "<li><a href='/itunes/pause'><img src=\"images/itunes/b_pause.png\" alt=\"pause\"/></a></li>"
         else:
             play_pause = "<li><a href='/itunes/play'><img src=\"images/itunes/b_play.png\"   alt=\"play\" /></a></li>"
 
-        name = "All These Things That I've Done"
-        artist = "The Killers"
-        album = "Hot Fuss"
+        #name = "All These Things That I've Done"
+        #artist = "The Killers"
+        #album = "Hot Fuss"
 
         return '''
             <h4>iTunes:<br>Current Song:</h4>

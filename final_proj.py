@@ -31,8 +31,7 @@ class homepage:
       </head>
 
       <body style="background='background.bmp'">
-
-		<img src="/images/background.bmp"/>
+		<!--<img src="/images/background.bmp"/>-->
 
 
         <div class="row-fluid" style="text-align:left; padding-left:20px; background-color:#188A00">
