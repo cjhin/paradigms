@@ -13,6 +13,6 @@ class module_ps:
                 break
 
         return '''
-            <p>The output of ps is</p>'''+output+'''
-        '''
+                  <p>The output of ps is</p>'''+output+'''
+               '''
     index.exposed = True
