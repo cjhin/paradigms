@@ -16,37 +16,62 @@ s.connect(("gmail.com",80))
 print(s.getsockname()[0])
 s.close()
 
-cur_dir = os.path.dirname(os.path.abspath(__file__))
-print cur_dir
-
 ###############################################
 # Main Page
 class homepage:
-  def index(self):
-    #add get_script functions and do HTML head. Also create header. 
-    HTML = page_include.get_script()+'''
-      <head>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>		 
-      </head>
+  def __init__(self):
+    self.signin = signin_auth()
 
-      <body style="background-image:url(http://win-8.de/wp-content/uploads/2011/03/windows-8-m3-wallpaper1.jpg)">
-        <div class="row-fluid" style="text-align:left; padding-left:30px;">
-          <h1><font color="#E0E0E0">swag</font></h1>
-        </div>
-    '''       
-    #HTML Body
-    #Loop through modules, call each using get_script 
-    mod_count = 0
-    for module in module_names:
-        HTML += '<div class="span4" style="background-color:#FFF; padding:0 10px 10px 10px; margin-bottom:5px; border-radius:1em; opacity:0.65; filter:alpha(opacity=65)">' #module
-        HTML += '<h3 style="text-align:right; margin:0 0 -5px 0">'+module+'</h3>' #title
-        HTML += '<script>HttpRequest("'+module+'")</script></div>'       #body
-        mod_count += 1              
-    HTML = HTML + '</body>'
+  def index(self):
+	#check if valid cookie authentication.  If valid run normal, if not run signin page
+    cookie = cherrypy.request.cookie
+    for name in cookie:
+      if (name=='user'):
+		#add get_script functions and do HTML head. Also create header. 
+		HTML = page_include.get_script()+'''
+		  <head>
+			<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+			<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>		 
+		  </head>
+
+		  <body style="background-image:url(http://win-8.de/wp-content/uploads/2011/03/windows-8-m3-wallpaper1.jpg)">
+			<div class="row-fluid" style="text-align:left; padding-left:30px;">
+			  <h1><font color="#E0E0E0">swag</font></h1>
+			</div>
+		'''       
+    		#HTML Body
+		#Loop through modules, call each using get_script 
+		mod_count = 0
+		for module in module_names:
+			HTML += '<div class="span4" style="background-color:#FFF; padding:0 10px 10px 10px; margin-bottom:5px; border-radius:1em; opacity:0.65; filter:alpha(opacity=65)">' #module
+			HTML += '<h3 style="text-align:right; margin:0 0 -5px 0">'+module+'</h3>' #title
+			HTML += '<script>HttpRequest("'+module+'")</script></div>'       #body
+			mod_count += 1              
+		HTML = HTML + '</body>'
+		return HTML
+
+    #at this point no cookie was found so print out authentication
+    HTML= '''
+	  <form class="form-signin" action="signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input name="info" type="text" class="input-block-level" placeholder="Username">
+        <input name="info" type="password" class="input-block-level" placeholder="Password">
+        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+      </form>'''
     return HTML
   index.exposed = True
 
+#signin page authentication stuff
+class signin_auth:
+	def index(self, info=None):
+		if(info[0]=='admin' and info[1]=='password'):
+			cookie_input = cherrypy.response.cookie
+			cookie_input['user'] = 'yes'
+			cookie_input['user']['path'] = '/'
+
+		raise cherrypy.HTTPRedirect("../../")
+
+	index.exposed = True 
 ###############################################
 # Import and Initialize all "modules" 
 #
