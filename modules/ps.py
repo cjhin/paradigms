@@ -12,7 +12,5 @@ class module_ps:
             else:
                 break
 
-        return '''
-                  <h4> >>> ps </h4>'''+output+'''
-               '''
+        return output
     index.exposed = True

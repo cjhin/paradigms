@@ -30,20 +30,17 @@ class homepage:
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>		 
       </head>
 
-      <body style="background='background.bmp'">
-		<!--<img src="/images/background.bmp"/>-->
-
-
-        <div class="row-fluid" style="text-align:left; padding-left:20px; background-color:#188A00">
-          <h1><font color="#D0D0D0">Swag</font></h1>
+      <body style="background-image:url(http://win-8.de/wp-content/uploads/2011/03/windows-8-m3-wallpaper1.jpg)">
+        <div class="row-fluid" style="text-align:left; padding-left:30px;">
+          <h1><font color="#E0E0E0">swag</font></h1>
         </div>
     '''       
     #HTML Body
     #Loop through modules, call each using get_script 
     mod_count = 0
     for module in module_names:
-        HTML += '<div class="span4" style="text-align:center; border-top-style:solid; border-radius:5px; border-color:#188A00; padding-bottom:10px">' #module
-        HTML += '<div class = "row-fluid" style="text-align: center; background-color:#D0D0D0"><h2>'+module+'</h2></div>' #title
+        HTML += '<div class="span4" style="background-color:#FFF; padding:0 10px 10px 10px; margin-bottom:5px; border-radius:1em; opacity:0.65; filter:alpha(opacity=65)">' #module
+        HTML += '<h3 style="text-align:right; margin:0 0 -5px 0">'+module+'</h3>' #title
         HTML += '<script>HttpRequest("'+module+'")</script></div>'       #body
         mod_count += 1              
     HTML = HTML + '</body>'
@@ -52,12 +49,11 @@ class homepage:
 
 ###############################################
 # Import and Initialize all "modules" 
-# TODO change this so that the modules are added dynamically based on some saved preferences or something
 #
 #   Ex:
 #   root.'url' = 'package_name'.'module_class_name'()
 
-# Import the list of desired modules
+# Import the list of desired modules from modules/modules.txt
 module_names = []
 for filename in os.listdir('./modules'):
       if fnmatch.fnmatch(filename, '*.py') and filename not in('__init__.py'):

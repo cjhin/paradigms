@@ -45,24 +45,24 @@ class module_itunes:
 		#TODO if the song changes this page wont update... is there some kind of listener? worse case we can do a manual refresh
 
         if state.strip() == "playing":
-            play_pause = "<li><a href='/itunes/pause'><img src=\"images/itunes/b_pause.png\" alt=\"pause\"/></a></li>"
+            play_pause = "<a href='/itunes/pause'><img src=\"images/itunes/b_pause.png\" alt=\"pause\"/></a>"
         else:
-            play_pause = "<li><a href='/itunes/play'><img src=\"images/itunes/b_play.png\"   alt=\"play\" /></a></li>"
+            play_pause = "<a href='/itunes/play'><img src=\"images/itunes/b_play.png\"   alt=\"play\" /></a>"
 
         #name = "All These Things That I've Done"
         #artist = "The Killers"
         #album = "Hot Fuss"
 
         return '''
-            <h4>iTunes:<br>Current Song:</h4>
-
+			<span style="text-align:center;">
             <p>'''+name+'''<br>'''+artist+'''<br>'''+album+'''</p>
             
-            <h4>Sub-Modules:</h4>
-            <ul>'''+play_pause+'''
-                <li><a href='/itunes/next'><img src="./images/itunes/b_next.png"   alt="next"  /></a></li>
-                <li><a href='/itunes/prev'><img src="./images/itunes/b_rewind.png" alt="rewind"/></a></li>
-            </ul>
+			<div>
+                <a href='/itunes/prev'><img src="./images/itunes/b_rewind.png" alt="rewind"/></a>
+				'''+play_pause+'''
+                <a href='/itunes/next'><img src="./images/itunes/b_next.png"   alt="next"  /></a>
+			</div>
+			</span>
         '''
     index.exposed = True
 
