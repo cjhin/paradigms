@@ -12,7 +12,5 @@ class module_ps:
             else:
                 break
 
-        return '''
-                  <p>The output of ps is</p>'''+output+'''
-               '''
+        return output
     index.exposed = True
